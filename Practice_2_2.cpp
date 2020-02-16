@@ -3,38 +3,41 @@
 #include <vector>
 
 using namespace std; 
-const vector<int>* penta_seq(int);
-void display(const vector<int> &);
+bool penta_seq(int size, vector<int> &seq);
+void display(vector<int> &vec, const string &words);
 
 
 int main()
 {
-	cout << "please enter";
+	cout << "please enter ";
 	int size;
 	cin >> size;
-	const vector<int> * pseq = penta_seq(size);
-	display(*pseq);
+	vector<int> seq;
+	if (penta_seq(size, seq))
+		display(seq, "haha");
 	return 0;
 }
 
-void display(const vector<int> &vec)
+void display(vector<int> &vec, const string &words)
 {
+	cout << words  << "\n";
 	for (int i = 0; i < vec.size(); i++)
 	{
 		cout << vec[i] << ' ';
 	}
 }
 
-const vector<int>* penta_seq(int size)
+bool penta_seq(int size, vector<int> &seq)
 {
-	static vector<int> seq;
-	for (int i = seq.size(); i < size; i++)
+	if (size < 0 || size > 64)
 	{
-		if (i == 0)
-			seq.push_back(1);
-		else
-			seq.push_back(i * (3 * i - 1) / 2);
+		cout << "Invalid" << "\n";
+		return false;
+	}
+	for (int i = seq.size() + 1; i <= size; i++)
+	{
+		seq.push_back(i * (3 * i - 1) / 2);
 
 	}
-	return &seq;
+	return true;
 }
